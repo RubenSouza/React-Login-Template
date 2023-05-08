@@ -5,11 +5,14 @@ import Register from "./pages/Register";
 import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
+import { useSelector } from "react-redux";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("user") as string) || null;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  const darkMode = useSelector((state: any) => state.darkMode.mode);
 
   useEffect(() => {
     setIsLoading(false);
@@ -26,24 +29,27 @@ function App() {
     } else {
       setIsLogged(false);
     }
-
-    console.log(user);
   }, [user, isLoading]);
 
   if (isLoading) return <Loading />;
   else {
     return (
-      <div className="bg-[#121212] h-screen max-h-screen text-white ">
-        {isLogged ? (
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        ) : (
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        )}
+      <div className={`${darkMode === "dark" ? "dark" : ""}`}>
+        <div
+          className="bg-primary-150 dark:bg-primary-500 h-screen max-h-screen 
+        text-primary-600 dark:text-primary-100"
+        >
+          {isLogged ? (
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          ) : (
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          )}
+        </div>
       </div>
     );
   }

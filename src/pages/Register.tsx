@@ -3,6 +3,7 @@ import waves from "../assets/waves.svg";
 import { Link } from "react-router-dom";
 import { BsGoogle, BsGithub } from "react-icons/bs";
 import axios from "axios";
+import DarkMode from "../components/DarkMode";
 
 const Register = () => {
   const [username, setUsername] = useState<string>();
@@ -30,10 +31,11 @@ const Register = () => {
 
   return (
     <div className="h-screen">
+      <DarkMode />
       <div className="flex justify-center items-center h-full ">
         <div
-          className="bg-[#15171a] h-[590px] w-[450px] z-20 rounded-lg
-        shadow-lg shadow-black text-gray-200"
+          className="bg-primary-110/90 dark:bg-primary-450 h-[590px] w-[450px] z-20 rounded-lg
+        shadow-lg shadow-black"
         >
           <div
             className="flex flex-col space-y-1 justify-center items-center 
@@ -47,10 +49,10 @@ const Register = () => {
               bg-gradient-to-r from-[#ef6b2e] via-[#bc5c78] to-[#9d5399]"
               >
                 <div
-                  className="bg-[#15171a] w-full h-full flex space-x-2
+                  className="bg-primary-100 dark:bg-primary-600 w-full h-full flex space-x-2
                 justify-center items-center rounded-lg cursor-pointer
-                hover:bg-gradient-to-r hover:from-[#ef6b2e]/40 hover:via-[#bc5c78]/40 
-                hover:to-[#9d5399]/40"
+                hover:bg-gradient-to-r hover:from-[#ef6b2e]/80 hover:via-[#bc5c78]/80 
+                hover:to-[#9d5399]/80"
                 >
                   <div>
                     <BsGoogle className="w-5 h-5" />
@@ -65,10 +67,10 @@ const Register = () => {
               bg-gradient-to-r from-[#ef6b2e] via-[#bc5c78] to-[#9d5399]"
               >
                 <div
-                  className="bg-[#15171a] transition ease-in-out delay-150 w-full h-full flex space-x-2
+                  className="bg-primary-100 dark:bg-primary-600 w-full h-full flex space-x-2
                 justify-center items-center rounded-lg cursor-pointer
-                hover:bg-gradient-to-r hover:from-[#ef6b2e]/40 hover:via-[#bc5c78]/40 
-                hover:to-[#9d5399]/40 hover:transition hover:duration-1000 hover:ease-in"
+                hover:bg-gradient-to-r hover:from-[#ef6b2e]/80 hover:via-[#bc5c78]/80 
+                hover:to-[#9d5399]/80"
                 >
                   <div>
                     <BsGithub className="w-5 h-5" />
@@ -82,19 +84,19 @@ const Register = () => {
             <p className="text-gray-500"> -- OR -- </p>
             <form onSubmit={handleSubmit}>
               <input
-                className="w-full h-14 rounded-lg mb-3 p-6 bg-[#131313d2] "
+                className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Username"
                 type="text"
                 onChange={e => setUsername(e.target.value)}
               />
               <input
-                className="w-full h-14 rounded-lg mb-3 p-6 bg-[#131313d2] "
+                className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Email"
                 type="email"
                 onChange={e => setEmail(e.target.value)}
               />
               <input
-                className="w-full h-14 rounded-lg mb-3 p-6 bg-[#131313d2]"
+                className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Password"
                 type="password"
                 onChange={e => setPassword(e.target.value)}
