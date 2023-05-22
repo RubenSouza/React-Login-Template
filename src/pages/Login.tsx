@@ -1,6 +1,7 @@
+import toast, { Toaster } from "react-hot-toast";
 import waves from "../assets/waves.svg";
 import { Link } from "react-router-dom";
-import { BsGoogle, BsGithub, BsSun } from "react-icons/bs";
+import { BsGoogle, BsGithub } from "react-icons/bs";
 import { useState } from "react";
 import axios from "axios";
 import DarkMode from "../components/DarkMode";
@@ -16,14 +17,17 @@ const Login = () => {
       email,
       password,
     };
-
-    const fetchUserLogin = await axios.post(
-      "http://localhost:3001/v1/api/users/login",
-      userData
-    );
-    if (fetchUserLogin) {
-      localStorage.setItem("user", JSON.stringify(fetchUserLogin.data));
-      window.location.href = "/";
+    try {
+      const fetchUserLogin = await axios.post(
+        "http://localhost:3001/v1/api/users/login",
+        userData
+      );
+      if (fetchUserLogin) {
+        localStorage.setItem("user", JSON.stringify(fetchUserLogin.data));
+        window.location.href = "/";
+      }
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   };
 
@@ -86,12 +90,14 @@ const Login = () => {
               <input
                 className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Email"
+                required={true}
                 type="email"
                 onChange={e => setEmail(e.target.value)}
               />
               <input
                 className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Password"
+                required={true}
                 type="password"
                 onChange={e => setPassword(e.target.value)}
               />
@@ -104,6 +110,7 @@ const Login = () => {
                 Login to your Account
               </button>
             </form>
+
             <div className="flex space-x-2 pb-3 py-3">
               <p className="text-gray-500 text-md">Not a member yet?</p>
               <Link to={"/register"}>
@@ -124,6 +131,7 @@ const Login = () => {
           className="absolute -bottom-0 w-[100%] shadow-lg z-10"
         />
       </div>
+      <Toaster />
     </div>
   );
 };

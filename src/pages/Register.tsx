@@ -1,3 +1,4 @@
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import waves from "../assets/waves.svg";
 import { Link } from "react-router-dom";
@@ -19,13 +20,17 @@ const Register = () => {
       password,
     };
 
-    const fetchUser = await axios.post(
-      "http://localhost:3001/v1/api/users/register",
-      registerData
-    );
+    try {
+      const fetchUser = await axios.post(
+        "http://localhost:3001/v1/api/users/register",
+        registerData
+      );
 
-    if (fetchUser) {
-      window.location.href = "/";
+      if (fetchUser) {
+        window.location.href = "/";
+      }
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   };
 
@@ -86,18 +91,21 @@ const Register = () => {
               <input
                 className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Username"
+                required={true}
                 type="text"
                 onChange={e => setUsername(e.target.value)}
               />
               <input
                 className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Email"
+                required={true}
                 type="email"
                 onChange={e => setEmail(e.target.value)}
               />
               <input
                 className="w-full h-14 rounded-lg mb-3 p-6 bg-primary-50 shadow-md dark:bg-primary-600"
                 placeholder="Password"
+                required={true}
                 type="password"
                 onChange={e => setPassword(e.target.value)}
               />
@@ -130,6 +138,7 @@ const Register = () => {
           className="absolute -bottom-0 w-[100%] shadow-lg z-10"
         />
       </div>
+      <Toaster />
     </div>
   );
 };
